@@ -3,7 +3,7 @@ import ControlPresupuesto from "./ControlPresupuesto";
 
 import Presupuesto from "./Presupuesto";
 
-const Header = ({ isValid, setIsValid, error, setError, animarError, setAnimarError, gastos, presupuesto, setPresupuesto }) => {
+const Header = ({ isValid, setIsValid, error, setError, animarError, setAnimarError, gastos, presupuesto, setPresupuesto, setGastos }) => {
 
   return (
     <>
@@ -28,8 +28,11 @@ const Header = ({ isValid, setIsValid, error, setError, animarError, setAnimarEr
         <div className="w-3/4 2xl:w-2/4">
           {isValid ? (
             <ControlPresupuesto
+              setGastos={setGastos}
               presupuesto={presupuesto}
+              setPresupuesto={setPresupuesto}
               gastos={gastos}
+              setIsValid={setIsValid}
             />
           ) : (
             <Presupuesto

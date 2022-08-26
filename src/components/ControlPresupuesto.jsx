@@ -3,10 +3,21 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { formatearNumero } from "../helpers";
 
-const ControlPresupuesto = ({ presupuesto, gastos }) => {
+const ControlPresupuesto = ({ presupuesto, gastos , setGastos, setPresupuesto,setIsValid}) => {
   const [disponible, setDisponible] = useState(0);
   const [gastado, setGastado] = useState(0);
   const [porcentaje, setPorcentaje] = useState(0);
+
+
+  const handleReset = () => {
+    const resultado = confirm('Deseas reiniciar le presupuesto y el gasto')
+
+    if(resultado){
+      setGastos([])
+      setPresupuesto(0)
+      setIsValid(false)
+    }
+  }
 
   useEffect(() => {
     const totalGastado = gastos.reduce(
@@ -34,7 +45,7 @@ const ControlPresupuesto = ({ presupuesto, gastos }) => {
         Presupuesto
       </h2>
       <div className="flex justify-center items-center">
-        <div className=" w-64 h-64 ">
+        <div className=" w-64 h-64 flex flex-1 ">
           <CircularProgressbar
             styles={buildStyles({
               pathColor: porcentaje > 100 ? '#DC2626' : '#6419E6',
@@ -48,6 +59,7 @@ const ControlPresupuesto = ({ presupuesto, gastos }) => {
         </div>
         <div className="flex-1">
           <div className="mt-5 px-10">
+            <button type="button" onClick={handleReset} className="w-full rounded-lg shadow-lg shadow-[#6419E6] mb-10 bg-[#6419E6] p-3 text-white font-bold text-xl">Resetear app</button>
             <h3 className="text-[#6419E6] font-extrabold text-xl mb-2">
               Presupuesto: {' '}
               <span className="text-white font-semibold">

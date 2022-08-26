@@ -9,7 +9,7 @@ import Add from "../src/img/Add.svg";
 function App() {
   const [isValid, setIsValid] = useState(false);
   const [presupuesto, setPresupuesto] = useState(
-    localStorage.getItem("presupuesto") ?? ""
+    localStorage.getItem("presupuesto") ?? 0
   );
   const [modal, setModal] = useState(false);
   const [animarModal, setAnimarModal] = useState(false);
@@ -94,10 +94,11 @@ function App() {
       <Header
         isValid={isValid}
         presupuesto={presupuesto}
-        setPresupuesto={setPresupuesto}
         error={error}
         gastos={gastos}
+        setGasto={setGasto}
         setIsValid={setIsValid}
+        setPresupuesto={setPresupuesto}
         setError={setError}
         animarError={animarError}
         setAnimarError={setAnimarError}
