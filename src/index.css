@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.swipe-action__leading {
+  @apply bg-[#6419E6] rounded-lg shadow-lg shadow-[#6419E6]  text-white mb-5 flex justify-center items-center font-black text-3xl;
+}
+
+.swipe-action__trailing {
+  @apply bg-red-600 rounded-lg shadow-lg shadow-red-600  text-white mb-5 flex justify-center items-center font-black text-3xl;
+}
+
