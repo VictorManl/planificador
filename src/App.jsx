@@ -2,20 +2,28 @@ import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import NuevoGasto from "./components/NuevoGasto";
 import ListarGasto from "./components/ListarGasto";
+import Filtro from "./components/Filtro";
 import { generarId } from "./helpers";
 import Add from "../src/img/Add.svg";
 
 function App() {
   const [isValid, setIsValid] = useState(false);
-  const [presupuesto, setPresupuesto] = useState(localStorage.getItem('presupuesto') ?? '')
+  const [presupuesto, setPresupuesto] = useState(
+    localStorage.getItem("presupuesto") ?? ""
+  );
   const [modal, setModal] = useState(false);
   const [animarModal, setAnimarModal] = useState(false);
   const [error, setError] = useState(false);
   const [animarError, setAnimarError] = useState(false);
   const [gastos, setGastos] = useState(
-    localStorage.getItem('gastos') ? JSON.parse(localStorage.getItem('gastos')) :  [] );
-  
-    const [gasto, setGasto] = useState({});
+    localStorage.getItem("gastos")
+      ? JSON.parse(localStorage.getItem("gastos"))
+      : []
+  );
+  const [gasto, setGasto] = useState({});
+  const [filtro ,setFiltro] = useState('')
+  const [gastosFiltrados ,setGastosFiltrados] = useState([])
+
 
   useEffect(() => {
     if (Object.keys(gasto).length > 0) {
@@ -23,20 +31,28 @@ function App() {
     }
   }, [gasto]);
 
-  useEffect(() =>{
-    localStorage.setItem('presupuesto', presupuesto ?? 0)
-  }, [presupuesto])
+  useEffect(() => {
+    localStorage.setItem("presupuesto", presupuesto ?? 0);
+  }, [presupuesto]);
 
-  useEffect(() =>{
-    const presupuestoLS = Number(localStorage.getItem('presupuesto') ?? 0)
-    if(presupuestoLS > 0){
-      setIsValid(true)
+  useEffect(() => {
+    const presupuestoLS = Number(localStorage.getItem("presupuesto") ?? 0);
+    if (presupuestoLS > 0) {
+      setIsValid(true);
     }
-  },[])
+  }, []);
 
   useEffect(() =>{
-    localStorage.setItem('gastos', JSON.stringify(gastos) ?? [])
-  }, [gastos])
+    if(filtro){
+      const gastosFiltrados = gastos.filter( g => g.categoria === filtro)
+      setGastosFiltrados(gastosFiltrados)
+    }
+  },[filtro])
+
+
+  useEffect(() => {
+    localStorage.setItem("gastos", JSON.stringify(gastos) ?? []);
+  }, [gastos]);
 
   const cerrarModal = () => {
     setAnimarModal(true);
@@ -89,8 +105,14 @@ function App() {
 
       {isValid ? (
         <>
-          <main className="mx-auto w-3/5">
+          <main className="mx-auto w-3/5 mb-10">
+            <Filtro
+              filtro={filtro}
+              setFiltro={setFiltro}
+            />
             <ListarGasto
+              filtro={filtro}
+              gastosFiltrados={gastosFiltrados}
               gastos={gastos}
               eliminarGasto={eliminarGasto}
               setGasto={setGasto}

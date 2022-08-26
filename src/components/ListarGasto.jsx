@@ -1,20 +1,47 @@
 import Gasto from "./Gasto";
 
-const ListarGasto = ({ gastos,setGasto, eliminarGasto }) => {
+const ListarGasto = ({
+  gastos,
+  setGasto,
+  eliminarGasto,
+  filtro,
+  gastosFiltrados,
+}) => {
   return (
-    <div className="container mx-auto mt-8">
-      <h2 className="text-white text-4xl font-black text-center mb-5">
-        Listado de gastos
-      </h2>
+    <div className="mt-8">
       <div className="flex justify-center items-center flex-col">
-        {gastos.length ? (
-          gastos.map((gasto) => <Gasto key={gasto.id} gasto={gasto} setGasto={setGasto} eliminarGasto={eliminarGasto}/>)
-        ) : (
-          <div className="bg-[#191D24] px-14 py-8 rounded-lg shadow-lg shadow-gray-800 w-3/5 2xl:w-2/4 text-white">
-            <h2 className="font-bold text-xl text-white text-center">
-              Aun no hay gastos
+        {filtro ? (
+          <>
+            <h2 className="text-white text-4xl font-black text-center mb-5">
+              {gastosFiltrados.length
+                ? `Listado de gastos por filtro: ${filtro}`
+                : `Aun no hay un gasto por este filtro: ${filtro}`}
             </h2>
-          </div>
+            {gastosFiltrados.map((gasto) => (
+              <Gasto
+                key={gasto.id}
+                gasto={gasto}
+                setGasto={setGasto}
+                eliminarGasto={eliminarGasto}
+              />
+            ))}
+          </>
+        ) : (
+          <>
+          <h2 className="text-white text-4xl font-black text-center mb-5">
+              {gastos.length
+                ? 'Listado de gastos'
+                : 'Aun no hay un gasto'}
+            </h2>
+            {gastos.map((gasto) => (
+              <Gasto
+                key={gasto.id}
+                gasto={gasto}
+                setGasto={setGasto}
+                eliminarGasto={eliminarGasto}
+              />
+            ))}
+          </>
         )}
       </div>
     </div>
