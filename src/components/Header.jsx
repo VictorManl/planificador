@@ -10,7 +10,7 @@ const Header = ({ isValid, setIsValid, error, setError, animarError, setAnimarEr
       <div className="flex justify-center items-center flex-col ">
         {error && (
           <div
-            className={`fixed top-10 right-10 bg-[#191D24] p-4 shadow-md shadow-[#191D24] rounded-md animate-Derecha  ${
+            className={`fixed top-2 right-5 bg-[#191D24] p-4 shadow-md shadow-[#191D24] rounded-md animate-Derecha  ${
               animarError ? "animate-eDerecha" : " "
             }`}
           >
